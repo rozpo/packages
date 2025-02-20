@@ -3,13 +3,24 @@
 // found in the LICENSE file.
 
 @import camera_avfoundation;
+#if __has_include(<camera_avfoundation/camera_avfoundation-umbrella.h>)
+@import camera_avfoundation.Test;
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// Creates an `FLTCam` that runs its capture session operations on a given queue.
-/// @param captureSessionQueue the capture session queue
-/// @return an FLTCam object.
+/// This method provides a convenient way to create media settings with minimal configuration.
+/// Audio is enabled by default, while other parameters use platform-specific defaults.
+extern FCPPlatformMediaSettings *FCPGetDefaultMediaSettings(
+    FCPPlatformResolutionPreset resolutionPreset);
+
+/// Creates a test `FLTCamConfiguration` with a default mock setup.
+extern FLTCamConfiguration *FLTCreateTestCameraConfiguration(void);
+
 extern FLTCam *FLTCreateCamWithCaptureSessionQueue(dispatch_queue_t captureSessionQueue);
+
+/// Creates an `FLTCam` with a test configuration.
+extern FLTCam *FLTCreateCamWithConfiguration(FLTCamConfiguration *configuration);
 
 /// Creates a test sample buffer.
 /// @return a test sample buffer.
